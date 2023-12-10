@@ -1,5 +1,5 @@
 # Stage 1: Build the Go binary
-FROM golang:1.17 AS builder
+FROM golang:1.21.5 AS builder
 
 WORKDIR /app
 
