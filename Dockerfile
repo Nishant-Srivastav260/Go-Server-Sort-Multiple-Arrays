@@ -6,11 +6,15 @@ WORKDIR /app
 COPY go.mod .
 COPY go.sum .
 
+# Set environment variables for the build
+ENV CGO_ENABLED=0
+ENV GOOS=linux
+
 RUN go mod download
 
 COPY . .
 
-RUN CGO_ENABLED=0 GOOS=linux go build -o app
+RUN go build -o app
 
 # Stage 2: Create the final lightweight image
 FROM alpine:latest
