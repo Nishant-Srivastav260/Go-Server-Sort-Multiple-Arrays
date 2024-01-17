@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
 )
 
 type RequestBody struct {
@@ -23,8 +24,8 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/process-single", handleSort).Methods("POST")
 	r.HandleFunc("/process-concurrent", handleConcurrentSort).Methods("POST")
-
-	http.Handle("/", r)
+	handler := cors.Default().Handler(r)
+	http.Handle("/", handler)
 	http.ListenAndServe(":8080", nil)
 }
 
